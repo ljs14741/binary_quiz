@@ -1,4 +1,4 @@
-package com.example.bitcoin.quiz.entity;
+package com.example.quiz.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

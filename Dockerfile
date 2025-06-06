@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # war파일을 컨테이너 내부의 /app 디렉토리로 1
-COPY build/libs/bitcoin-0.0.1-SNAPSHOT.war /app/bitcoin.war
+COPY build/libs/quiz-0.0.1-SNAPSHOT.war /app/quiz.war
 
 # 커스텀 에러 페이지 파일을 Nginx 경로로 복사
 COPY src/main/resources/templates/error/*.html /usr/share/nginx/html/
@@ -14,7 +14,7 @@ COPY src/main/resources/templates/error/*.html /usr/share/nginx/html/
 ENV TZ=Asia/Seoul
 
 # War 파일 실행
-CMD ["java", "-jar", "-Duser.timezone=Asia/Seoul", "/app/bitcoin.war"]
+CMD ["java", "-jar", "-Duser.timezone=Asia/Seoul", "/app/quiz.war"]
 
 
 

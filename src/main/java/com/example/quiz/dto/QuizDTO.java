@@ -1,4 +1,4 @@
-package com.example.bitcoin.quiz.dto;
+package com.example.quiz.dto;
 
 import lombok.*;
 

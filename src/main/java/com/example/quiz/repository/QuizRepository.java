@@ -1,6 +1,6 @@
-package com.example.bitcoin.quiz.repository;
+package com.example.quiz.repository;
 
-import com.example.bitcoin.quiz.entity.Quiz;
+import com.example.quiz.entity.Quiz;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

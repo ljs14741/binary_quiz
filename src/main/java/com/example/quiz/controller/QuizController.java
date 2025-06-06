@@ -1,12 +1,9 @@
-package com.example.bitcoin.quiz.controller;
+package com.example.quiz.controller;
 
-import com.example.bitcoin.quiz.dto.QuizDTO;
-import com.example.bitcoin.quiz.service.QuizService;
-import com.example.bitcoin.service.VisitorService;
-import jakarta.servlet.http.HttpSession;
+import com.example.quiz.dto.QuizDTO;
+import com.example.quiz.service.QuizService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +18,10 @@ public class QuizController {
 
     private final QuizService quizService;
 
-    private final VisitorService visitorService;
 
-    @RequestMapping("/quiz")
+    @RequestMapping("/")
     public String showQuiz(Model model) {
-        visitorService.incrementVisitorCount("quiz");
-        return "quiz/quiz";
+        return "quiz";
     }
 
     @RequestMapping("/quizStart")
@@ -37,7 +32,7 @@ public class QuizController {
         model.addAttribute("quizList", quizList);
         log.info("퀴즈리스트: " + quizList);
 
-        return "quiz/quizStart";
+        return "quizStart";
     }
 
     @RequestMapping("/quizResult")
@@ -49,6 +44,6 @@ public class QuizController {
         model.addAttribute("grade", grade);
         model.addAttribute("message", message);
 
-        return "quiz/quizResult";
+        return "quizResult";
     }
 }

@@ -1,9 +1,9 @@
-package com.example.bitcoin.quiz.service;
+package com.example.quiz.service;
 
-import com.example.bitcoin.quiz.dto.QuizDTO;
-import com.example.bitcoin.quiz.entity.Quiz;
-import com.example.bitcoin.quiz.entity.QuizOptions;
-import com.example.bitcoin.quiz.repository.QuizRepository;
+import com.example.quiz.dto.QuizDTO;
+import com.example.quiz.entity.Quiz;
+import com.example.quiz.entity.QuizOptions;
+import com.example.quiz.repository.QuizRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

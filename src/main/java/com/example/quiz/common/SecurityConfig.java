@@ -1,4 +1,4 @@
-package com.example.vote.common;
+package com.example.quiz.common;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

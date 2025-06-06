@@ -1,15 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="common/header"></th:block>
-    <title>테스트 결과 | 상식 테스트</title>
-    <meta name="description" content="테스트 결과를 확인하고 당신의 상식 수준을 알아보세요.">
-    <meta name="keywords" content="상식 테스트 결과, 상식 수준, 테스트 점수, 상식 퀴즈">
-    <meta property="og:title" content="테스트 결과 | 상식 테스트">
-    <meta property="og:description" content="테스트 결과를 확인하고 당신의 상식 수준을 알아보세요.">
+    <title>테스트 결과 | 상식 테스트 | Binary World</title>
+    <meta name="description" content="상식 테스트 결과를 확인하고 당신의 점수를 친구들과 공유해보세요.">
+    <meta name="keywords" content="상식 테스트 결과, 점수 공유, 상식 랭킹, 지식 평가">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://quiz.binaryworld.kr/quizResult">
+    <meta property="og:title" content="상식 테스트 결과 | 나의 점수는?">
+    <meta property="og:description" content="당신의 상식 테스트 결과를 확인하고 친구들과 공유해보세요!">
+    <meta property="og:image" content="https://quiz.binaryworld.kr/img/radish.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="상식 테스트 결과 | 나의 점수는?">
+    <meta name="twitter:description" content="테스트 결과를 확인하고 얼마나 알고 있는지 확인해보세요.">
+    <meta name="twitter:image" content="https://quiz.binaryworld.kr/img/radish.png">
+
+    <meta name="robots" content="index, follow">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/quiz.css}">
+
+    <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
+    <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-<th:block th:include="common/headBar"></th:block>
     <div class="intro">
         <h1 class="main-title">상식 테스트 결과</h1>
     </div>
@@ -24,9 +61,8 @@
         <h3 th:text="'총 10문제 중 ' + ${score} + '문제를 맞추셨습니다!'"></h3>
         <h3 th:text="${grade}"></h3>
         <p th:text="${message}"></p>
-        <button onclick="window.location.href='/quiz'" class="button-quiz">다시 시작하기</button>
+        <button onclick="window.location.href='/'" class="button-quiz">다시 시작하기</button>
     </div>
-<th:block th:include="common/footer"></th:block>
 
 <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function() {
@@ -42,12 +78,12 @@
 
     function shareTwitter() {
         var sendText = "상식 테스트";
-        var sendUrl = "https://binary96.store/quiz";
+        var sendUrl = "https://quiz.binaryworld.kr/quiz";
         window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
     }
 
     function shareFacebook() {
-        var sendUrl = "https://binary96.store/quiz";
+        var sendUrl = "https://quiz.binaryworld.kr/quiz";
         window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
     }
 
@@ -61,10 +97,10 @@
             content: {
                 title: '상식테스트',
                 description: '친구들과 경쟁해보세요~',
-                imageUrl: 'https://binary96.store/quiz',
+                imageUrl: 'https://quiz.binaryworld.kr/quiz',
                 link: {
-                    mobileWebUrl: 'https://binary96.store/quiz',
-                    webUrl: 'https://binary96.store/quiz'
+                    mobileWebUrl: 'https://quiz.binaryworld.kr/quiz',
+                    webUrl: 'https://quiz.binaryworld.kr/quiz'
                 },
             },
         });
