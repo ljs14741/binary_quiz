@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<head>
+    <th:block th:include="common/header"></th:block>
+    <title>상식 테스트 문제 풀기</title>
+    <meta name="description" content="상식 테스트 문제를 풀고 당신의 상식 수준을 확인해보세요.">
+    <meta name="keywords" content="상식 테스트, 문제 풀이, 상식 문제, 상식 퀴즈">
+    <meta property="og:title" content="테스트 문제 풀이 | 상식 테스트">
+    <meta property="og:description" content="상식 테스트 문제를 풀고 당신의 상식 수준을 확인해보세요.">
+</head>
+<style>
+    .answer-message {
+        margin: 15px 0;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        display: none; /* 초기에는 숨김 */
+        border-radius: 5px;
+    }
+    .correct { background-color: #d4edda; color: #155724; } /* 정답일 때 스타일 */
+    .incorrect { background-color: #f8d7da; color: #721c24; } /* 오답일 때 스타일 */
+</style>
+<body>
+    <th:block th:include="common/headBar"></th:block>
+    <div class="intro">
+        <h1 class="main-title">상식 테스트 문제 풀기</h1>
+    </div>
+    <div class="container-quiz">
+        <div class="progress-bar">
+            <div id="progress" class="progress" style="width: 0%;"></div>
+        </div>
+        <h3 id="question-title"></h3>
+        <div id="quiz-options" class="quiz-options"></div>
+        <div id="answer-message" class="answer-message"></div>
+        <button id="next-btn" class="button-quiz" onclick="nextQuestion()" disabled>다음</button>
+    </div>
+
+    <th:block th:include="common/footer"></th:block>
+
+<script th:inline="javascript">
+    var currentQuestion = 0;
+    var score = 0;
+    var selectedAnswer = null;
+    var isAnswerChecked = false; // 정답 확인 여부 추가
+
+    var quizData = /*[[${quizList}]]*/ [];
+
+    function loadQuestion() {
+        if (currentQuestion >= quizData.length) return;
+
+        document.getElementById("question-title").textContent = quizData[currentQuestion].question;
+
+        var optionsHtml = '';
+        quizData[currentQuestion].options.forEach(function(option, index) {
+            optionsHtml += `<div class="quiz-option" onclick="selectOption(${index})">${option}</div>`;
+        });
+        document.getElementById("quiz-options").innerHTML = optionsHtml;
+        document.getElementById("next-btn").disabled = true; // 다음 버튼 비활성화
+        selectedAnswer = null; // 새로운 질문이 로드될 때 선택한 답을 초기화
+        isAnswerChecked = false; // 정답 확인 여부 초기화
+        document.getElementById("answer-message").style.display = "none"; // 정답 메시지 숨김
+    }
+
+    function selectOption(selectedIndex) {
+        selectedAnswer = selectedIndex; // 선택한 옵션을 기록
+
+        var options = document.getElementsByClassName('quiz-option');
+        for (var i = 0; i < options.length; i++) {
+            options[i].classList.remove('selected');
+        }
+        options[selectedIndex].classList.add('selected');
+
+        document.getElementById("next-btn").disabled = false; // 다음 버튼 활성화
+    }
+
+    function nextQuestion() {
+        var answerMessage = document.getElementById("answer-message");
+
+        if (!isAnswerChecked) { // 정답 확인 단계
+            if (selectedAnswer === quizData[currentQuestion].answerIndex - 1) {
+                score++;
+                answerMessage.textContent = "정답입니다!";
+                answerMessage.className = "answer-message correct";
+            } else {
+                answerMessage.textContent = "틀렸습니다. 정답은 '" + quizData[currentQuestion].options[quizData[currentQuestion].answerIndex - 1] + "' 입니다.";
+                answerMessage.className = "answer-message incorrect";
+            }
+            answerMessage.style.display = "block"; // 메시지 표시
+            isAnswerChecked = true; // 정답 확인 완료로 설정
+            document.getElementById("next-btn").textContent = "다음 문제로";
+        } else { // 다음 문제로 이동 단계
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                updateProgressBar();
+                loadQuestion();
+                document.getElementById("next-btn").textContent = "다음"; // 버튼 텍스트 초기화
+            } else {
+                window.location.href = '/quizResult?score=' + score;
+            }
+        }
+    }
+
+    function updateProgressBar() {
+        var progressPercentage = (currentQuestion / quizData.length) * 100;
+        document.getElementById("progress").style.width = progressPercentage + "%";
+    }
+
+    // 첫 번째 질문 로드
+    loadQuestion();
+</script>
+</body>
+</html>

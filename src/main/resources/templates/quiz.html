@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="common/header"></th:block>
+    <title>상식 테스트 | 다양한 주제로 나의 상식 수준 확인</title>
+    <meta name="title" content="상식 테스트 | 다양한 주제로 나의 상식 수준 확인">
+    <meta name="description" content="문학, 영화, 경제, 과학 등 다양한 주제로 간단한 상식 테스트를 시작해보세요. 친구들과 경쟁하며 즐겁게 상식을 점검하세요!">
+    <meta name="keywords" content="상식 테스트, 상식 퀴즈, 상식 문제, 상식 도전, 주제별 상식 테스트">
+    <meta property="og:title" content="상식 테스트 | 다양한 주제로 나의 상식 수준 확인">
+    <meta property="og:description" content="문학, 영화, 경제, 과학 등 다양한 주제로 간단한 상식 테스트를 시작해보세요. 친구들과 경쟁하며 즐겁게 상식을 점검하세요!">
+    <meta property="og:image" content="https://binary96.store/img/radish.png">
+    <meta property="og:url" content="https://binary96.store/quiz">
+</head>
+<body>
+    <th:block th:include="common/headBar"></th:block>
+
+    <div class="intro">
+        <h1 class="main-title">상식 테스트 | 다양한 주제로 나의 상식 수준 확인</h1>
+    </div>
+    <div id="domain-notice" style="background-color: #ffeb3b; padding: 10px; text-align: center; font-weight: bold;">
+        📢 사이트 도메인이 <a href="https://binaryworld.kr" style="color: #d32f2f;">binaryworld.kr</a> 로 변경 작업중입니다.
+    </div>
+
+    <div class="icon-container">
+        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
+        <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
+        <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>
+    </div>
+
+    <div class="container-quiz" >
+        <p>간단한 상식 테스트를 통해 당신의 상식 수준을 알아보세요!</p>
+
+        <form id="quiz-form" action="/quizStart" method="get">
+            <div class="quiz-category">
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="literature"><span>문학상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="movie"><span>영화상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="economy"><span>경제상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="geography"><span>세계지리상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="language"><span>언어상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="music"><span>음악상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="environment"><span>환경상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="medical"><span>의학상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="law"><span>법률상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="cooking"><span>요리상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="psychology"><span>심리학상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="philosophy"><span>철학상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="it"><span>IT상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="history"><span>역사상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="general"><span>일반상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="science"><span>과학상식</span>
+                </label>
+                <label class="category-card" onclick="selectCategory(this)">
+                    <input type="radio" name="category_code" value="sports"><span>스포츠상식</span>
+                </label>
+            </div>
+            <button type="submit" class="button-quiz">테스트 시작하기</button>
+        </form>
+
+
+    </div>
+
+    <th:block th:include="common/footer"></th:block>
+
+<script th:inline="javascript">
+
+    function selectCategory(label) {
+        // 모든 카테고리에서 'selected' 클래스를 제거
+        const categories = document.querySelectorAll('.category-card');
+        categories.forEach(category => {
+            category.classList.remove('selected');
+        });
+
+        // 클릭된 카테고리에 'selected' 클래스를 추가
+        label.classList.add('selected');
+    }
+    function shareTwitter() {
+        var sendText = "상식 테스트";
+        var sendUrl = "https://binary96.store/quiz";
+        window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    }
+
+    function shareFacebook() {
+        var sendUrl = "https://binary96.store/quiz";
+        window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+    }
+
+    function shareKakao() {
+        Kakao.init('8b68c737be6b8e9a8007c61ee6f9b8da');
+
+        // 카카오링크 버튼 생성
+        Kakao.Share.createDefaultButton({
+            container: '#btnKakao',
+            objectType: 'feed',
+            content: {
+                title: '상식테스트',
+                description: '친구들과 경쟁해보세요~',
+                imageUrl: 'https://binary96.store/quiz',
+                link: {
+                    mobileWebUrl: 'https://binary96.store/quiz',
+                    webUrl: 'https://binary96.store/quiz'
+                },
+            },
+        });
+    }
+</script>
+</body>
+</html>
