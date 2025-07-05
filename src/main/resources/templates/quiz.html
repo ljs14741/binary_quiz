@@ -177,19 +177,23 @@
     }
     function shareTwitter() {
         var sendText = "상식 테스트";
-        var sendUrl = "https://quiz.binaryworld.kr/quiz";
+        var sendUrl = "https://quiz.binaryworld.kr";
         window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
     }
 
     function shareFacebook() {
-        var sendUrl = "https://quiz.binaryworld.kr/quiz";
+        var sendUrl = "https://quiz.binaryworld.kr";
         window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
     }
 
-    function shareKakao() {
-        Kakao.init('8b68c737be6b8e9a8007c61ee6f9b8da');
+    function setupKakaoShareButton() {
+        if (!window.Kakao) return;
+        if (!document.querySelector('#btnKakao')) return;
 
-        // 카카오링크 버튼 생성
+        if (!Kakao.isInitialized()) {
+            Kakao.init('8b68c737be6b8e9a8007c61ee6f9b8da');
+        }
+
         Kakao.Share.createDefaultButton({
             container: '#btnKakao',
             objectType: 'feed',
@@ -198,12 +202,14 @@
                 description: '친구들과 경쟁해보세요~',
                 imageUrl: 'https://quiz.binaryworld.kr/img/radish.png',
                 link: {
-                    mobileWebUrl: 'https://quiz.binaryworld.kr/quiz',
-                    webUrl: 'https://quiz.binaryworld.kr/quiz'
-                },
-            },
+                    mobileWebUrl: 'https://quiz.binaryworld.kr',
+                    webUrl: 'https://quiz.binaryworld.kr'
+                }
+            }
         });
     }
+
+    setupKakaoShareButton();
 </script>
 </body>
 </html>
