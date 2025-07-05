@@ -2,9 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>테스트 결과 | 상식 테스트 | Binary World</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta name="description" content="상식 테스트 결과를 확인하고 당신의 점수를 친구들과 공유해보세요.">
     <meta name="keywords" content="상식 테스트 결과, 점수 공유, 상식 랭킹, 지식 평가">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Binary World">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -18,11 +22,6 @@
     <meta name="twitter:title" content="상식 테스트 결과 | 나의 점수는?">
     <meta name="twitter:description" content="테스트 결과를 확인하고 얼마나 알고 있는지 확인해보세요.">
     <meta name="twitter:image" content="https://quiz.binaryworld.kr/img/radish.png">
-
-    <meta name="robots" content="index, follow">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/quiz.css}">
 
     <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
     <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
@@ -44,29 +43,68 @@
     <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="intro">
-        <h1 class="main-title">상식 테스트 결과</h1>
-    </div>
 
-    <div class="icon-container">
-        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
-        <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
-        <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>
-    </div>
+<th:block th:include="common/header"></th:block>
+<div class="page-title">
+    <h1>상식 테스트 결과</h1>
+</div>
 
-    <div class="container-quiz">
-        <h3 th:text="'총 10문제 중 ' + ${score} + '문제를 맞추셨습니다!'"></h3>
-        <h3 th:text="${grade}"></h3>
-        <p th:text="${message}"></p>
-        <button onclick="window.location.href='/'" class="button-quiz">다시 시작하기</button>
-    </div>
+<div class="icon-container">
+    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
+    <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
+    <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>
+</div>
+
+<div class="container-quiz">
+    <h3 th:text="'총 10문제 중 ' + ${score} + '문제를 맞추셨습니다!'"></h3>
+    <h3 th:text="${grade}"></h3>
+    <p th:text="${message}"></p>
+    <button onclick="window.location.href='/'" class="button-quiz">다시 시작하기</button>
+</div>
+
+<th:block th:include="common/footer"></th:block>
 
 <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function() {
+        // 1. 햄버거 메뉴 토글
+        const toggleBtn = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav-links');
+
+        if (toggleBtn && nav) {
+            toggleBtn.addEventListener('click', () => {
+                toggleBtn.classList.toggle('active');
+                nav.classList.toggle('open');
+            });
+        }
+
+        // 2. 테마 토글
+        const themeToggle = document.getElementById('themeToggle');
+        const themeLink = document.getElementById('theme-style');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+
+        applyTheme(currentTheme);
+
+        if (themeToggle && themeLink) {
+            themeToggle.addEventListener('click', () => {
+                const isDark = themeLink.getAttribute('href').includes('dark');
+                const nextTheme = isDark ? 'light' : 'dark';
+                applyTheme(nextTheme);
+            });
+        }
+
+        function applyTheme(theme) {
+            themeLink.setAttribute('href', `/css/main-${theme}.css`);
+            localStorage.setItem('theme', theme);
+        }
+
         // URL에서 점수 가져오기
         var urlParams = new URLSearchParams(window.location.search);
         var score = urlParams.get('score');

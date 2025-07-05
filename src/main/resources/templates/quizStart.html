@@ -2,8 +2,12 @@
 <head>
     <title>상식 테스트 문제 풀기 | Binary World</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+
     <meta name="description" content="문학, 과학, IT 등 다양한 분야의 상식 퀴즈를 풀며 당신의 지식을 테스트하세요.">
     <meta name="keywords" content="상식 퀴즈, 문제 풀이, 온라인 테스트, 상식 게임, 지식 테스트">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Binary World">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -17,11 +21,6 @@
     <meta name="twitter:title" content="상식 테스트 문제 풀기 | Binary World">
     <meta name="twitter:description" content="다양한 상식 문제를 풀며 재미있게 지식을 테스트해보세요.">
     <meta name="twitter:image" content="https://quiz.binaryworld.kr/img/radish.png">
-
-    <meta name="robots" content="index, follow">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/quiz.css}">
 
     <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
     <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
@@ -43,24 +42,75 @@
     <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <!-- Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="intro">
-        <h1 class="main-title">상식 테스트 문제 풀기</h1>
+
+<th:block th:include="common/header"></th:block>
+<div class="page-title">
+    <h1>상식 테스트 문제 풀기</h1>
+</div>
+
+<div class="container-quiz">
+    <div class="progress-bar">
+        <div id="progress" class="progress" style="width: 0%;"></div>
     </div>
-    <div class="container-quiz">
-        <div class="progress-bar">
-            <div id="progress" class="progress" style="width: 0%;"></div>
-        </div>
-        <h3 id="question-title"></h3>
-        <div id="quiz-options" class="quiz-options"></div>
-        <div id="answer-message" class="answer-message"></div>
-        <button id="next-btn" class="button-quiz" onclick="nextQuestion()" disabled>다음</button>
-    </div>
+    <h3 id="question-title"></h3>
+    <div id="quiz-options" class="quiz-options"></div>
+    <div id="answer-message" class="answer-message"></div>
+    <button id="next-btn" class="button-quiz" onclick="nextQuestion()" disabled>다음</button>
+</div>
+
+<th:block th:include="common/footer"></th:block>
 
 <script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. 햄버거 메뉴 토글
+        const toggleBtn = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav-links');
+
+        if (toggleBtn && nav) {
+            toggleBtn.addEventListener('click', () => {
+                toggleBtn.classList.toggle('active');
+                nav.classList.toggle('open');
+            });
+        }
+
+        // 2. 테마 토글
+        const themeToggle = document.getElementById('themeToggle');
+        const themeLink = document.getElementById('theme-style');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+
+        applyTheme(currentTheme);
+
+        if (themeToggle && themeLink) {
+            themeToggle.addEventListener('click', () => {
+                const isDark = themeLink.getAttribute('href').includes('dark');
+                const nextTheme = isDark ? 'light' : 'dark';
+                applyTheme(nextTheme);
+            });
+        }
+
+        function applyTheme(theme) {
+            themeLink.setAttribute('href', `/css/main-${theme}.css`);
+            localStorage.setItem('theme', theme);
+        }
+
+        // URL에서 점수 가져오기
+        var urlParams = new URLSearchParams(window.location.search);
+        var score = urlParams.get('score');
+
+        // 총 문제 수 및 결과 메시지 설정
+        var totalQuestions = 10;
+        var resultMessage = `총 ${totalQuestions}문제 중 ${score}문제를 맞추셨습니다!`;
+        document.getElementById("result-message").textContent = resultMessage;
+    });
+
     var currentQuestion = 0;
     var score = 0;
     var selectedAnswer = null;

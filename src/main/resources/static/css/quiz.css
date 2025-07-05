@@ -7,16 +7,6 @@ body {
     color: #333;
 }
 
-/* 메인 타이틀 */
-.main-title {
-    text-align: center;
-    font-size: 2.4rem;
-    font-weight: 700;
-    margin: 40px 20px 30px;
-    color: #1e3a8a;
-    animation: fadeIn 0.8s ease-in;
-}
-
 /* 퀴즈 컨테이너 */
 .container-quiz {
     max-width: 900px;
@@ -175,9 +165,6 @@ body {
 
 /* ✅ 모바일 대응 */
 @media (max-width: 768px) {
-    .main-title {
-        font-size: 1.8rem;
-    }
 
     .container-quiz {
         padding: 20px;
