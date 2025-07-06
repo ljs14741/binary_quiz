@@ -2,6 +2,9 @@ package com.example.quiz.controller;
 
 import com.example.quiz.dto.QuizDTO;
 import com.example.quiz.service.QuizService;
+import com.example.quiz.service.VisitorService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,8 @@ public class QuizController {
 
     private final QuizService quizService;
 
+    private final VisitorService visitorService;
+
     @GetMapping("/about")
     public String about() {
         return "common/about";
@@ -35,7 +40,8 @@ public class QuizController {
     }
 
     @RequestMapping("/")
-    public String showQuiz(Model model) {
+    public String showQuiz(Model model, HttpServletRequest request, HttpServletResponse response) {
+        visitorService.countVisitIfNeeded(request, response, "quiz");
         return "quiz";
     }
 
