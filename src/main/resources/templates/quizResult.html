@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>테스트 결과 | 상식 테스트 | Binary World</title>
     <meta charset="UTF-8">
@@ -23,28 +23,13 @@
     <meta name="twitter:description" content="테스트 결과를 확인하고 얼마나 알고 있는지 확인해보세요.">
     <meta name="twitter:image" content="https://quiz.binaryworld.kr/img/radish.png">
 
-    <!-- ✅ 파비콘 (모든 디바이스용 포함) -->
     <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/img/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <!-- Stylesheet -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
@@ -52,11 +37,13 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6890085609044109"
             crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="bw-quiz-body">
 
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 <div class="page-title">
+    <p class="bw-quiz-kicker">Binary World</p>
     <h1>상식 테스트 결과</h1>
+    <p>점수를 확인하고 다시 도전해보세요</p>
 </div>
 
 <div class="icon-container">
@@ -69,7 +56,7 @@
     <h3 th:text="'총 10문제 중 ' + ${score} + '문제를 맞추셨습니다!'"></h3>
     <h3 th:text="${grade}"></h3>
     <p th:text="${message}"></p>
-    <button onclick="window.location.href='/'" class="button-quiz">다시 시작하기</button>
+    <button onclick="window.location.href='/'" class="button-quiz" type="button">다시 시작하기</button>
 </div>
 
 <footer id="global-footer" aria-label="Binary World 푸터"></footer>
