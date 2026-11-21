@@ -1,5 +1,7 @@
 package com.example.quiz.controller;
 
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.http.HttpStatus;
 import com.example.quiz.dto.QuizDTO;
 import com.example.quiz.service.QuizService;
 import com.example.quiz.service.VisitorService;
@@ -24,19 +26,12 @@ public class QuizController {
 
     private final VisitorService visitorService;
 
-    @GetMapping("/about")
-    public String about() {
-        return "common/about";
-    }
-
-    @GetMapping("/privacy-policy")
-    public String privacyPolicy() {
-        return "common/privacy-policy";
-    }
-
-    @GetMapping("/contact")
-    public String contact() {
-        return "common/contact";
+    // 소개·문의·개인정보는 메인 한 곳에서 관리함 (영구 이동)
+    @GetMapping({"/about", "/contact", "/privacy-policy"})
+    public RedirectView legalPage(HttpServletRequest request) {
+        RedirectView view = new RedirectView("https://binaryworld.kr" + request.getRequestURI());
+        view.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+        return view;
     }
 
     @RequestMapping("/")
