@@ -49,6 +49,9 @@
     <link rel="stylesheet" href="https://binaryworld.kr/common/header.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/footer.css">
     <link rel="stylesheet" href="https://binaryworld.kr/common/guestbook.css">
+    <!-- 서비스 공용 디자인 (로컬 확인 땐 BW_COMMON 으로 주소를 바꿀 수 있음) -->
+    <link rel="stylesheet" th:href="${@environment.getProperty('bw.common', 'https://binaryworld.kr')} + '/common/service.css'" href="https://binaryworld.kr/common/service.css">
+    <link rel="stylesheet" th:href="@{/css/quiz-ui.css}">
     <link id="theme-style" rel="stylesheet" th:href="@{/css/main-light.css}">
     <script>
         // 다른 서브도메인에서 고른 테마 이어받기. 처음 온 사람은 밝게 (헤더가 뜨기 전에 미리 바꿔 깜빡임 막음)
@@ -73,19 +76,28 @@
         gtag('config', 'G-0TSFJBQ41N');
     </script>
 </head>
-<body class="bw-quiz-body">
+<body class="bw-quiz-body bw-svc-page">
 
 <header id="global-header" aria-label="Binary World 공통 메뉴"></header>
 <div class="page-title">
-    <h1>상식 테스트</h1>
+    <div class="bw-svc-toys" aria-hidden="true">
+        <span class="bw-toy bw-toy-chip" style="--x:7%;--y:20%;--s:62px;--d:7s;--r0:-12deg;--r1:6deg;--c1:#c4b5fd;--c2:#7c3aed">?</span>
+        <span class="bw-toy bw-toy-chip" style="--x:86%;--y:16%;--s:52px;--d:6.5s;--delay:-2s;--c1:#fde68a;--c2:#f59e0b">!</span>
+        <span class="bw-toy bw-toy-dice" style="--x:88%;--y:64%;--s:56px;--d:8s;--delay:-1s;--r0:8deg;--r1:-10deg"></span>
+        <span class="bw-toy bw-toy-chip" style="--x:5%;--y:66%;--s:48px;--d:7.5s;--delay:-3s;--c1:#f9a8d4;--c2:#db2777">A</span>
+        <span class="bw-toy bw-toy-star" style="--x:20%;--y:8%;--s:34px;--d:6s;--delay:-4s"></span>
+        <span class="bw-toy bw-toy-ball" style="--x:76%;--y:86%;--s:22px;--d:5s;--delay:-2s"></span>
+    </div>
+    <p class="bw-svc-eyebrow">Quiz</p>
+    <h1><span class="bw-svc-em">상식</span> 테스트</h1>
     <p>문학·과학·IT까지, 분야를 고르고 바로 시작해보세요</p>
-</div>
-
-<div class="icon-container">
+    <div class="icon-container">
     <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
     <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>
     <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>
+    </div>
 </div>
+
 
 <div class="container-quiz">
     <p>카테고리를 선택한 뒤 테스트 시작하기를 누르세요</p>
@@ -93,55 +105,55 @@
     <form id="quiz-form" action="/quizStart" method="get">
         <div class="quiz-category">
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="literature"><span>문학상식</span>
+                <input type="radio" name="category_code" value="literature"><i aria-hidden="true">📚</i><span>문학상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="movie"><span>영화상식</span>
+                <input type="radio" name="category_code" value="movie"><i aria-hidden="true">🎬</i><span>영화상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="economy"><span>경제상식</span>
+                <input type="radio" name="category_code" value="economy"><i aria-hidden="true">💰</i><span>경제상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="geography"><span>세계지리상식</span>
+                <input type="radio" name="category_code" value="geography"><i aria-hidden="true">🌍</i><span>세계지리상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="language"><span>언어상식</span>
+                <input type="radio" name="category_code" value="language"><i aria-hidden="true">🗣️</i><span>언어상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="music"><span>음악상식</span>
+                <input type="radio" name="category_code" value="music"><i aria-hidden="true">🎵</i><span>음악상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="environment"><span>환경상식</span>
+                <input type="radio" name="category_code" value="environment"><i aria-hidden="true">🌱</i><span>환경상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="medical"><span>의학상식</span>
+                <input type="radio" name="category_code" value="medical"><i aria-hidden="true">💊</i><span>의학상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="law"><span>법률상식</span>
+                <input type="radio" name="category_code" value="law"><i aria-hidden="true">⚖️</i><span>법률상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="cooking"><span>요리상식</span>
+                <input type="radio" name="category_code" value="cooking"><i aria-hidden="true">🍳</i><span>요리상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="psychology"><span>심리학상식</span>
+                <input type="radio" name="category_code" value="psychology"><i aria-hidden="true">🧠</i><span>심리학상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="philosophy"><span>철학상식</span>
+                <input type="radio" name="category_code" value="philosophy"><i aria-hidden="true">🤔</i><span>철학상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="it"><span>IT상식</span>
+                <input type="radio" name="category_code" value="it"><i aria-hidden="true">💻</i><span>IT상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="history"><span>역사상식</span>
+                <input type="radio" name="category_code" value="history"><i aria-hidden="true">🏛️</i><span>역사상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="general"><span>일반상식</span>
+                <input type="radio" name="category_code" value="general"><i aria-hidden="true">💡</i><span>일반상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="science"><span>과학상식</span>
+                <input type="radio" name="category_code" value="science"><i aria-hidden="true">🔬</i><span>과학상식</span>
             </label>
             <label class="category-card" onclick="selectCategory(this)">
-                <input type="radio" name="category_code" value="sports"><span>스포츠상식</span>
+                <input type="radio" name="category_code" value="sports"><i aria-hidden="true">⚽</i><span>스포츠상식</span>
             </label>
         </div>
         <button type="submit" class="button-quiz">테스트 시작하기</button>
@@ -214,6 +226,7 @@
 
     setupKakaoShareButton();
 </script>
+<script th:src="${@environment.getProperty('bw.common', 'https://binaryworld.kr')} + '/common/service.js'" src="https://binaryworld.kr/common/service.js" defer></script>
 <script src="https://binaryworld.kr/common/header.js" defer></script>
 <script src="https://binaryworld.kr/common/footer.js" defer></script>
 <script src="https://binaryworld.kr/common/guestbook.js" defer></script>
